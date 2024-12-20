@@ -29,4 +29,5 @@ jobs: #задания, которые будут выполняться в па�
           pip install bandit 
 
       - name: Run Bandit
-        run: bandit -r . 
+        run: |
+          bandit -r . 
