@@ -1,13 +1,7 @@
-name: CI/CD Pipeline
+name: Security Check
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-      
+on: [push, pull_request]
+
 jobs:
   bandit:
     runs-on: ubuntu-latest
@@ -29,8 +23,9 @@ jobs:
           bandit -r . -f json -o bandit_report.json
           
       - name: Upload Bandit report
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3  # Обновлено до v3
         with:
           name: bandit-report
           path: bandit_report.json
+
 
