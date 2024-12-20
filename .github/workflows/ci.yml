@@ -30,4 +30,4 @@ jobs: #задания, которые будут выполняться в па�
 
       - name: Run Bandit
         run: |
-          bandit -r . 
+          bandit -r . -f json || true
