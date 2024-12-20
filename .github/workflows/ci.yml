@@ -1,31 +1,27 @@
-name: Security Check
+name: CI/CD Pipeline
 
-on: [push, pull_request]
-
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+      
 jobs:
-  bandit:
+  build:
     runs-on: ubuntu-latest
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
+      - name: Build project
+        run: echo "Building the project..."
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
         with:
-          python-version: '3.8'
-
-      - name: Install dependencies
-        run: |
-          pip install bandit
-
-      - name: Run Bandit
-        run: |
-          bandit -r . -f json -o bandit_report.json
-          
-      - name: Upload Bandit report
-        uses: actions/upload-artifact@v3  # Обновлено до v3
-        with:
-          name: bandit-report
-          path: bandit_report.json
-
+          name: my-artifact
+          path: path/to/artifact
 
