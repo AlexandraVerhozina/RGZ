@@ -7,14 +7,14 @@ on:
   pull_request:
     branches:
       - main
-      
-jobs:
+
+jobs: #задания, которые будут выполняться в пайплайне
   build:
-    runs-on: ubuntu-latest
-    
+    runs-on: ubuntu-latest #будет выполняться на виртуальной машине
+
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3 #действие actions/checkout@v3, чтобы выкачать код из репозитория
 
       - name: Build project
         run: echo "Building the project..."
@@ -24,24 +24,10 @@ jobs:
         with:
           python-version: '3.8'
 
-      - name: Install dependencies
+      - name: Install dependencies #Устанавливает зависимость bandit
         run: |
-          pip install bandit
+          pip install bandit 
 
       - name: Run Bandit
         run: |
-          bandit -r . -f json -o bandit_report.json || true
-          
-      - name: Upload Bandit report
-        uses: actions/upload-artifact@v3
-        with:
-          name: bandit-report
-          path: bandit_report.json
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: my-artifact
-          path: path/to/artifact
-
-
+          bandit -r . 
